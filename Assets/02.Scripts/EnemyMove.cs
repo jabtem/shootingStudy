@@ -5,6 +5,8 @@ using UnityEngine;
 public class EnemyMove : MonoBehaviour
 {
     public float moveSpeed = 0.5f;
+    public GameObject explosionPrefab;
+    int killScore = 100;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,8 +27,24 @@ public class EnemyMove : MonoBehaviour
     {
         if(col.gameObject.tag == "Player")
         {
-            Destroy(col.gameObject);
-            Destroy(gameObject);
+            Instantiate(explosionPrefab, this.transform.position, Quaternion.identity);
+            SoundManager.sinstance.PlaySound();
+            GameManager.ginstance.KillPlayer();
+            //Destroy(col.gameObject);
+            col.gameObject.SetActive(false);
+            PlayerCtrl.canShot = false;
+            //Destroy(gameObject);
+            this.gameObject.SetActive(false);
+        }
+        else if(col.gameObject.tag == "Bullet")
+        {
+            Instantiate(explosionPrefab, this.transform.position, Quaternion.identity);
+            SoundManager.sinstance.PlaySound();
+            GameManager.ginstance.AddScore(killScore);
+            //Destroy(col.gameObject);
+            col.gameObject.SetActive(false);
+            //Destroy(gameObject);
+            this.gameObject.SetActive(false);
         }
     }
 }
