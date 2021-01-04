@@ -21,7 +21,7 @@ public class ObjectManager : MonoBehaviour
     void Start()
     {
         CreateBullets(5);
-        CreateEnemys(5);
+        CreateEnemys(2);
     }
 
     // Update is called once per frame
